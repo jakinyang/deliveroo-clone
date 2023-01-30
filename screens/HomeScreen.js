@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, TextInput } from 'react-native'
+import { View, Text, SafeAreaView, Image, TextInput, ScrollView } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {
@@ -7,6 +7,8 @@ import {
   MagnifyingGlassIcon,
   AdjustmentsVerticalIcon,
 } from 'react-native-heroicons/outline'
+import { Categories } from '../components/Categories';
+import { FeaturedRow } from '../components/FeaturedRow';
 
 export function HomeScreen() {
   const navigation = useNavigation();
@@ -18,7 +20,7 @@ export function HomeScreen() {
   return (
     <SafeAreaView className="bg-white pt-4">
       {/* Header */}
-      <View className="flex-row pb-3 items-center mx-4 space-x-2 px-4">
+      <View className="flex-row pb-3 items-center mx-4 space-x-2">
         <Image
           source={{ uri: "https://links.papareact.com/wru" }}
           className="h-7 w-7 bg-gray-300 p-4 rounded-full"
@@ -43,6 +45,32 @@ export function HomeScreen() {
         </View>
         <AdjustmentsVerticalIcon color="#00CCBB" />
       </View>
+      {/* Body */}
+      <ScrollView className="bg-gray-100">
+        {/* Categories */}
+        <Categories />
+        {/* Featured 1 */}
+        <FeaturedRow
+          id="1"
+          title="Featured"
+          description="Paid placements from our partners"
+        />
+
+        {/* Featured 2 */}
+        <FeaturedRow
+          id="2"
+          title="Tasty Discounts"
+          description="Paid placements from our partners"
+        />
+
+        {/* Featured 3 */}
+        <FeaturedRow
+          id="3"
+          title="Offers Near You"
+          description="Paid placements from our partners"
+        />
+
+      </ScrollView>
     </SafeAreaView>
   )
 }
