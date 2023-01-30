@@ -1,8 +1,8 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'author',
-  title: 'Author',
+  name: 'dish',
+  title: 'Dish',
   type: 'document',
   fields: [
     defineField({
@@ -11,13 +11,10 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
+      name: 'shortDescription',
+      title: 'Short Description',
+      type: 'string',
+      validation: (Rule) => Rule.max(200)
     }),
     defineField({
       name: 'image',
@@ -28,17 +25,9 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'bio',
-      title: 'Bio',
-      type: 'array',
-      of: [
-        {
-          title: 'Block',
-          type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
-          lists: [],
-        },
-      ],
+      name: 'price',
+      title: 'Price of the Dish in CAD',
+      type: 'number',
     }),
   ],
   preview: {
