@@ -14,7 +14,7 @@ import { client } from '../sanity';
 export function HomeScreen() {
   const navigation = useNavigation();
 
-  const [featuredCategories, setFeaturedCategories] = useState([])
+  const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useEffect(() => {
     client.fetch(
@@ -22,15 +22,16 @@ export function HomeScreen() {
         ...,
         restaurants[]->{
           ...,
-          dishes[]->
+          dishes[]->,
         }
       }`
     )
-    .then(data => setFeaturedCategories(data))
-    .catch(err => console.error(err))
-    console.log(data);
+      .then(data => {
+        setFeaturedCategories(data)
+      })
+      .catch(err => console.error(err))
   }, [])
-  
+
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -69,26 +70,17 @@ export function HomeScreen() {
       <ScrollView className="bg-gray-100">
         {/* Categories */}
         <Categories />
-        {/* Featured 1 */}
-        <FeaturedRow
-          id="1"
-          title="Featured"
-          description="Paid placements from our partners"
-        />
+        {featuredCategories?.map(category => {
 
-        {/* Featured 2 */}
-        <FeaturedRow
-          id="2"
-          title="Tasty Discounts"
-          description="Paid placements from our partners"
-        />
-
-        {/* Featured 3 */}
-        <FeaturedRow
-          id="3"
-          title="Offers Near You"
-          description="Paid placements from our partners"
-        />
+          return (
+            <FeaturedRow
+              key={category._id}
+              id={category._id}
+              title={category.name}
+              description={category.shortDescription}
+            />
+          )
+        })}
 
       </ScrollView>
     </SafeAreaView>
