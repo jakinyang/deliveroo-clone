@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { selectRestaurant } from '../features/restaurantSlice';
 import { XMarkIcon } from 'react-native-heroicons/solid';
 import * as Progress from 'react-native-progress';
+import MapView, { Marker } from 'react-native-maps';
 
 export function DeliveryScreen() {
   const navigation = useNavigation();
@@ -41,6 +42,44 @@ export function DeliveryScreen() {
             Your order at {restaurant.title} is being prepared
           </Text>
         </View>
+      </SafeAreaView>
+      <MapView
+        initialRegion={{
+          latitude: restaurant.lat,
+          longitude: restaurant.lon,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        }}
+        className="flex-1 -mt-10 z-0"
+        mapType='mutedStandard'
+      >
+        <Marker
+          coordinate={{
+            latitude: restaurant.lat,
+            longitude: restaurant.lon,
+          }}
+          title={restaurant.title}
+          description={restaurant.shortDescription}
+          identifier="origin"
+          pinColor='#00CCBB'
+        />
+      </MapView>
+      <SafeAreaView className="bg-white flex-row items-center space-x-5 h-28">
+        <Image
+          source={{
+            uri: "https://links.papareact.com/wru"
+          }}
+          className="h-12 w-12 bg-gray-300 p-4 rounded-full ml-5 mt-3"
+        />
+        <View className="flex-1">
+          <Text className="text-lg">
+            Joe Jonamas
+          </Text>
+          <Text className="text-gray-400">
+            Your Rider
+          </Text>
+        </View>
+        <Text className="text-[#00CCBB] text-lg mr-5 font-bold">Call</Text>
       </SafeAreaView>
     </View>
   )
