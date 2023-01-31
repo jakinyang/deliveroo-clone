@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, Image, TextInput, ScrollView } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {
   UserIcon,
@@ -9,9 +9,30 @@ import {
 } from 'react-native-heroicons/outline'
 import { Categories } from '../components/Categories';
 import { FeaturedRow } from '../components/FeaturedRow';
+import { client } from '../sanity';
 
 export function HomeScreen() {
   const navigation = useNavigation();
+
+  const [featuredCategories, setFeaturedCategories] = useState([]);
+
+  useEffect(() => {
+    client.fetch(
+      `*[_type == "featured"] {
+        ...,
+        restaurants[]->{
+          ...,
+          dishes[]->,
+        }
+      }`
+    )
+      .then(data => {
+        setFeaturedCategories(data)
+      })
+      .catch(err => console.error(err))
+  }, [])
+
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -49,26 +70,17 @@ export function HomeScreen() {
       <ScrollView className="bg-gray-100">
         {/* Categories */}
         <Categories />
-        {/* Featured 1 */}
-        <FeaturedRow
-          id="1"
-          title="Featured"
-          description="Paid placements from our partners"
-        />
+        {featuredCategories?.map(category => {
 
-        {/* Featured 2 */}
-        <FeaturedRow
-          id="2"
-          title="Tasty Discounts"
-          description="Paid placements from our partners"
-        />
-
-        {/* Featured 3 */}
-        <FeaturedRow
-          id="3"
-          title="Offers Near You"
-          description="Paid placements from our partners"
-        />
+          return (
+            <FeaturedRow
+              key={category._id}
+              id={category._id}
+              title={category.name}
+              description={category.shortDescription}
+            />
+          )
+        })}
 
       </ScrollView>
     </SafeAreaView>
