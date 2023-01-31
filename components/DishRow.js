@@ -4,7 +4,7 @@ import Currency from 'react-currency-formatter'
 import { urlFor } from '../sanity'
 import { MinusCircleIcon, PlusCircleIcon } from 'react-native-heroicons/solid'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToBasket, removeFromBasket, selectBasketItems, selectBasketItemsWithId } from '../features/basketSlice'
+import { addToBasket, removeFromBasket, selectBasketItemsWithId } from '../features/basketSlice'
 
 export function DishRow({
   id,
@@ -59,10 +59,10 @@ export function DishRow({
           <View className="flex-row items-center space-x-2 pb-3">
             <TouchableOpacity
               onPress={removeItemFromBasket}
+              disabled={!items.length}
             >
               <MinusCircleIcon
-                // color={items.length > 0 ? "#00CCBB" : "gray"}
-                color="#00CCBB"
+                color={items.length > 0 ? "#00CCBB" : "gray"}
                 size={40}
               />
             </TouchableOpacity>
@@ -71,7 +71,6 @@ export function DishRow({
               onPress={addItemToBasket}
             >
               <PlusCircleIcon
-                // color={items.length > 0 ? "#00CCBB" : "gray"}
                 color="#00CCBB"
                 size={40}
               />
