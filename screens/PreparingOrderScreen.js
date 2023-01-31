@@ -1,6 +1,8 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 import * as Animatable from 'react-native-animatable';
+import * as Progress from 'react-native-progress';
+
 
 export function PreparingOrderScreen() {
   return (
@@ -18,6 +20,7 @@ export function PreparingOrderScreen() {
       >
         Sending Order To Restaurant!
       </Animatable.Text>
+      <Progress.CircleSnail size={60} indeterminate={true} />
     </SafeAreaView>
   )
 }
