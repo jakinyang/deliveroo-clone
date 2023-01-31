@@ -11,6 +11,13 @@ export function PreparingOrderScreen() {
         iterationCount={1}
         className="h-96 w-96"
       />
+      <Animatable.Text
+        animation="slideInUp"
+        iterationCount={1}
+        className="text-lg my-10 text-[#00CCBB] font-extrabold text-center"
+      >
+        Sending Order To Restaurant!
+      </Animatable.Text>
     </SafeAreaView>
   )
 }
