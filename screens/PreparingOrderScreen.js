@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 
 export function PreparingOrderScreen() {
   return (
-    <SafeAreaView className="flex-1 bg-[#00CCBB] justify-center items-center">
+    <SafeAreaView className="flex-1 bg-[#FFFFFF] justify-center items-center">
       <Animatable.Image 
         source={require('../assets/alegria-city.gif')}
         animation="slideInUp"
